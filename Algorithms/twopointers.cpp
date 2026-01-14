@@ -7,21 +7,26 @@ int main()
     cin.tie(0);
     ios::sync_with_stdio(false);
     int n;cin>>n;
-    ll s; cin>>s;
+    ll k;cin>>k;
     vector<ll> v(n);
     for(auto &x:v) cin>>x;
-    ll cs= 0;
-    ll l,r; l =r =0;
-    ll res =-1;
+  
+    ll r = 0;
+    ll l =0;
+    ll dif=0;
+    map<ll,ll> mp;
+    ll res =0;
     while(r<n){
-      cs+=v[r];
-      while(cs>s){
-        cs-=v[l];
+      if(mp[v[r]]==0) dif++;
+      mp[v[r]]++;
+      while(dif>k){
+        mp[v[l]]--;
+        if(mp[v[l]]==0) dif--;
         l++;
       }
-      res = max(res,(r-l+1));
+      res+=(r-l+1);
       r++;
     }
     cout<<res<<endl;
-}
-//https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/A
+  }
+//https://cses.fi/problemset/task/2428/
