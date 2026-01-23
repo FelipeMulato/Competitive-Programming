@@ -28,3 +28,11 @@ void topo_sorto(){
     }
     
 }
+vector<bool> vis;
+void dfs_topo_sort(int u, vector<int> &order){
+    vis[u] = true;
+    for(auto nx:v[u]){
+        if(!vis[nx]) dfs(nx,order);
+    }
+    order.push_back(u);
+}
