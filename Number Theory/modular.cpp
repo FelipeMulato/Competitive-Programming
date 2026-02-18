@@ -6,3 +6,8 @@ using namespace std;
 ll const MOD = 1e9+7;
 ll mod_add(ll a, ll b) return (a%MOD + b%MOD)%MOD;
 ll mod_mut(ll a, ll b) return (a%MOD * b%MOD)%MOD;
+ll mod_sub(ll a, ll b) return (a%MOD - b%MOD)%MOD;
+
+int main(){
+    
+}
