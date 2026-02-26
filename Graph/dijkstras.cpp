@@ -16,6 +16,7 @@ void dijkstra(int s,int e){
         ll curr_dist = pq.top().first;
         int curr_node = pq.top().second;
         pq.pop();
+        if(currd>dist[currn])continue;
         for(auto [nx_dist,nx_node]:adj[pq]){
             if(dist[nx_node]>dist[curr_node]+nx_dist){
                 dist[nx_node]= dist[curr_node]+nx_dist;
