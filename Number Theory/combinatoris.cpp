@@ -18,7 +18,7 @@ ll fastpower(ll a,ll b){
 ll inv(ll a){
     return fastpower(a,MOD-2,MOD);
 }
-ll precompute(){
+void precompute(){
     for(ll i=0;i<=N;i++){
         if(i==0){
             fat[i]=1;
