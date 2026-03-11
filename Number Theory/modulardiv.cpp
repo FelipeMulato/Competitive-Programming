@@ -6,7 +6,7 @@ using namespace std;
 ll fastpower(ll a,ll b, ll mod){
   ll res=1;
   while(b>0){
-    if(b%2==0) res = (a%mod * res%mod)%mod;
+    if(b&1) res = (a%mod * res%mod)%mod;
     a = (a%mod * a%mod)%mod;
     b/=2;
   }
@@ -14,7 +14,7 @@ ll fastpower(ll a,ll b, ll mod){
 }
 // mod is prime
 ll mod_inverse(ll a, ll mod){
-    return pow(a,mod-2,mod);
+    return fastpower(a,mod-2,mod);
 }
 ll mod_div(ll a, ll b, ll mod){
     a%=a;
