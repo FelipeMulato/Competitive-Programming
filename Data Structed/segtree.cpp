@@ -4,64 +4,51 @@ using namespace std;
 #define ll long long
 #define ld long double
 const ll mod = 1e9+7;
-struct segtree{
+struct Node{
+  int num;
+  Node(){
+    num = 0;
+  }
+};
+Node Merge(Node a,Node b){
+  Node out;
+  // add problem logic here
+  out.num = a.num + b.num;
+  return out;
+}
+struct SegTree{
   int sz;
-  vector<ll> sums;
-  
-  segtree(int n){
+  vector<Node> seg;
+  SegTree(int n){
     sz = 1;
     while(sz<n) sz*=2;
-    sums = vector<ll>(sz*2,0);
+    seg = vector<Node>(sz*2);
   }
-  void set2(int i, ll v, int x, int lx, int rx){
+  void update(ll i, ll v, ll x,ll lx,ll rx){
     if(rx-lx==1){
-      sums[x] = v;
+      seg[x].num+=v;
       return;
     }
+    int mid = (rx+lx)/2;
+    if(i<mid) update(i,v,2*x+1,lx,mid);
+    else update(i,v,2*x+2,mid,rx);
     
-    int m = (rx+lx)/2;
-    if(i<m){
-      set2(i,v,2*x+1,lx,m);
+    seg[x] = Merge(seg[2*x+1],seg[2*x+2]);
+  }
+  Node query(ll l, ll r, ll x, ll lx,ll rx){
+    if(lx>=r||rx<=l){
+      Node out; return out;
     }
-    else{
-      set2(i,v,2*x+2,m,rx);
-    }
+    if(lx>=l && r>=rx) return seg[x];
+    int mid = (rx+lx)/2;
     
-    sums[x] = sums[2*x+1]+sums[2*x+2];
-  }
-  void set(int i, ll v){
-    set2(i,v,0,0,sz);
-  }
-  ll sum2(int l, int r, int x, int lx, int rx){
-    if(lx>=r||l>=rx) return 0;
-    if(lx>=l && rx<=r) return sums[x];
-    
-    int m = (rx+lx)/2;
-    
-    return sum2(l,r,2*x+1,lx,m) + sum2(l,r,2*x+2,m,rx);
-    
-  }
-  ll sum(int l ,int r){
-    return sum2(l,r,0,0,sz);
+    return Merge(query(l,r,2*x+1,lx,mid),query(l,r,2*x+2,mid,rx));
   }
 };
 int main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
-    int n,m; cin>>n>>m;
-    segtree t(n);
-    for(int i=0;i<n;i++){
-      ll x; cin>>x;
-      t.set(i,x);
-    }
-    while(m--){
-      ll op,a,b; cin>>op>>a>>b;
-      if(op==1){
-        t.set(a,b);
-      }
-      else{
-        cout<<t.sum(a,b)<<endl;
-      }
+    
     }
     
     
