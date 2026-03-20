@@ -40,11 +40,12 @@ void precompute_hashes(string p1,vector<ll> &prefix_hash1, vector<ll> &prefix_ha
 bool sub_Hasher(int i, int j,int k, int q){
   int len = j-i+1;
   int len2 =q-k+1;
-  ll h1 = (prefix_hash1[j+1] - (prefix_hash1[i]*powers1[len])%M1 +M1)%M1;
-  ll h2 = (prefix_hash2[j+1] - (prefix_hash2[i]*powers2[len])%M2 +M2)%M2;
+  ll h1 = (prefix_hash1[j] - (prefix_hash1[i-1]*powers1[len])%M1 +M1)%M1;
+  ll h2 = (prefix_hash2[j] - (prefix_hash2[i-1]*powers2[len])%M2 +M2)%M2;
   
-  ll h3 = (prefix_hash1[k+1] - (prefix_hash1[1]*powers1[len])%M1 +M1)%M1;
-  ll h4 = (prefix_hash2[k+1] - (prefix_hash2[1]*powers2[len])%M2 +M2)%M2;
+  ll h3 = (prefix_hash1[q] - (prefix_hash1[k-1]*powers1[len2])%M1 +M1)%M1;
+  ll h4 = (prefix_hash2[q] - (prefix_hash2[k-1]*powers2[len2])%M2 +M2)%M2;
+  
   
   return h1==h3 && h2==h4;
 }
