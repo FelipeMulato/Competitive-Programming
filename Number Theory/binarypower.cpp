@@ -7,7 +7,7 @@ using namespace std;
 ll fastpower(ll a,ll b){
   ll res=1;
   while(b>0){
-    if(b%2==0) res*=a;
+    if(b&1) res*=a;
     a*=a;
     b/=2;
   }
