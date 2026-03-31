@@ -5,7 +5,7 @@ using namespace std;
 #define ld long double
 const ll mod = 1e9+7;
 struct Node{
-  int num;
+  ll num;
   Node(){
     num = 0;
   }
@@ -21,7 +21,7 @@ struct SegTree{
   vector<Node> seg;
   SegTree(int n){
     sz = 1;
-    while(sz=<n) sz*=2;
+    while(sz<=n) sz*=2;
     seg = vector<Node>(sz*2);
   }
   void update(ll i, ll v, ll x,ll lx,ll rx){
