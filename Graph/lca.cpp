@@ -37,7 +37,9 @@ int kth(int u, int k) {
   for (int i = 0; i <= LG; i++) if (k & (1 << i)) u = up[u][i];
   return u;
 }
-
+int dist(int a, int b){
+	return dep[a]+dep[b] - 2*dep[lca(a,b)];
+}
 int main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
