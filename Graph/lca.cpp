@@ -34,9 +34,10 @@ int lca(int u, int v) {
 }
 int kth(int u, int k) {
   assert(k >= 0);
-  for (int i = 0; i <= LG; i++) if (k & (1 << i)) u = par[u][i];
+  for (int i = 0; i <= LG; i++) if (k & (1 << i)) u = up[u][i];
   return u;
 }
+
 int main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
