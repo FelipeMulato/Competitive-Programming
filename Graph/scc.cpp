@@ -58,10 +58,10 @@ int main(){
     }
     vector<vector<int>> comps;
     int scc = kosaraju(n,adj,comps);
-    vector<int> res(n,-1);
+    vector<int> gp(n,-1);
     int v = comps.size();
     for(int i=0;i<v;i++){
-      for(auto x:comps[i]) res[x]=i+1;
+      for(auto x:comps[i]) gp[x]=i+1;
     }
     vector<vector<int>> dag(v,vector<int>());
     
@@ -75,7 +75,7 @@ int main(){
       sort(dag[i].begin(), dag[i].end());
       dag[i].erase(unique(dag[i].begin(), dag[i].end()), dag[i].end());
      }
-     
+
     cout<<v<<endl;
     for(auto x:res) cout<<x<<" ";
     
