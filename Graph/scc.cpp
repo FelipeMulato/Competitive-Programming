@@ -63,6 +63,19 @@ int main(){
     for(int i=0;i<v;i++){
       for(auto x:comps[i]) res[x]=i+1;
     }
+    vector<vector<int>> dag(v,vector<int>());
+    
+    for(int i=0;i<n;i++){
+      for(auto j:adj[i]){
+        if(gp[i]!=gp[j]) dag[gp[i]].push_back(gp[j]);
+      }
+    }
+   
+    for (int i = 0; i < v; i++) {
+      sort(dag[i].begin(), dag[i].end());
+      dag[i].erase(unique(dag[i].begin(), dag[i].end()), dag[i].end());
+     }
+     
     cout<<v<<endl;
     for(auto x:res) cout<<x<<" ";
     
