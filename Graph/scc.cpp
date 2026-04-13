@@ -61,7 +61,7 @@ int main(){
     vector<int> gp(n,-1);
     int v = comps.size();
     for(int i=0;i<v;i++){
-      for(auto x:comps[i]) gp[x]=i+1;
+      for(auto x:comps[i]) gp[x]=i;
     }
     vector<vector<int>> dag(v,vector<int>());
     
