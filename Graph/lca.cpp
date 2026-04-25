@@ -9,18 +9,19 @@ int dy[] = {1, -1, 0, 0};
 int LG = 20;
 
 vector<vector<int>> up;
+vector<vector<int>> mx;
 vector<int> dep;
 vector<int> sz;
 vector<vector<int>> par;
-void dfs(int u, int p = 0) {
+void dfs(int u, int p = 0, ll w=0) {
   up[u][0] = p;
   dep[u] = dep[p] + 1;
   sz[u] = 1;
-  for (int i = 1; i <= LG; i++) up[u][i] = up[up[u][i - 1]][i - 1];
+  for (int i = 1; i <= LG; i++){ up[u][i] = up[up[u][i - 1]][i - 1]; mx[u][i] = max(mx[u][i - 1], mx[up[u][i - 1]][i - 1]); }
   
   for (auto v: par[u]){ 
     if (v != p) {
-      dfs(v, u);
+      dfs(v, u,w);
       sz[u] += sz[v];
     }
   }
@@ -40,6 +41,25 @@ int kth(int u, int k) {
 int dist(int a, int b){
 	return dep[a]+dep[b] - 2*dep[lca(a,b)];
 }
+ll query_max(int u, int v) {
+  ll ans = LLONG_MIN;
+  
+  if (dep[u] < dep[v]) swap(u, v);
+  
+  
+  for (int k = LG; k >= 0; k--) {if (dep[up[u][k]] >= dep[v]) {ans = max(ans, mx[u][k]); u = up[u][k];}}
+  
+  if (u == v) return ans;
+  
+  for (int k = LG; k >= 0; k--) {if (up[u][k] != up[v][k]) {ans = max({ans, mx[u][k], mx[v][k]});
+      u = up[u][k];
+      v = up[v][k];
+    }
+  }
+  
+  return max({ans, mx[u][0], mx[v][0]});
+}
+
 int main(){
     cin.tie(0);
     ios::sync_with_stdio(false);
