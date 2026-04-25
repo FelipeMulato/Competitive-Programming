@@ -16,6 +16,7 @@ vector<vector<int>> par;
 void dfs(int u, int p = 0, ll w=0) {
   up[u][0] = p;
   dep[u] = dep[p] + 1;
+  mx[u][0] = w;
   sz[u] = 1;
   for (int i = 1; i <= LG; i++){ up[u][i] = up[up[u][i - 1]][i - 1]; mx[u][i] = max(mx[u][i - 1], mx[up[u][i - 1]][i - 1]); }
   
