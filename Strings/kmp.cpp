@@ -36,5 +36,5 @@ vector<vector<int>> automato(string s){
     }
   }
   
-  return pi;
+  return aut;
 }
