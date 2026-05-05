@@ -20,3 +20,21 @@ vector<int> Pi(string &s) {
 
     return p;
 }
+\\ Automaton for KMP
+
+vector<vector<int>> automato(string s){
+  s+='#';
+  vector<int> pi =  Pi(s);
+  int n = s.size();
+  vector<vector<int>> aut(n,vector<int>(26,0));
+  for(int i=0;i<n;i++){
+    for(int c=0;c<26;c++){
+      if (i > 0 && 'a' + c != s[i])
+          aut[i][c] = aut[pi[i-1]][c];
+      else
+          aut[i][c] = i + ('a' + c == s[i]);
+    }
+  }
+  
+  return pi;
+}
