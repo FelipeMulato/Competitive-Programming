@@ -9,7 +9,7 @@ ll fat[N]; ll invfat[N];
 ll fastpower(ll a,ll b){
   ll res=1;
   while(b>0){
-    if(b%2==0) res=(a%MOD * res%MOD)%MOD;
+    if(b&1) res=(a%MOD * res%MOD)%MOD;
     a=(a%MOD * a%MOD)%MOD;
     b/=2;
   }
@@ -19,15 +19,11 @@ ll inv(ll a){
     return fastpower(a,MOD-2,MOD);
 }
 void precompute(){
-    for(ll i=0;i<=N;i++){
-        if(i==0){
-            fat[i]=1;
-            invfat[i]=1;
-        }
-        else{
-            fat[i] = (fat[i-1]*i%MOD)%MOD;
-            invfat[i] = inv(fat[i]); 
-        }
+    fat[0] = invfat[0] = 1;    
+    for(ll i=1;i<=N;i++){
+        fat[i] = (fat[i-1]*i%MOD)%MOD;
+        invfat[i] = inv(fat[i]); 
+        
     }
 }
 ll nCr(ll n, ll r){
