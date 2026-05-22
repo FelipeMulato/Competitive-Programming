@@ -11,7 +11,7 @@ int main(){
     for(auto &x: a) cin>>x;
     ll x; cin>>x;
     int l = 0, r = n-1;
-    while(r>l+1){
+    while(r>l+2){
         int m1 = l+(r-l)/3;
         int m2 = r-(r-l)/3;
         if(fun(m1)<fun(m2)) r = m2;
