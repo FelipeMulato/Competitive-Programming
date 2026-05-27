@@ -4,20 +4,15 @@ using namespace std;
 \\ Standard O(n log n) algorithm to find the length of the longest increasing subsequence
 int lis(vector<int> const& a) {
     int n = a.size();
-    const int INF = 1e9;
-    vector<int> d(n+1, INF);
-    d[0] = -INF;
-
-    for (int i = 0; i < n; i++) {
-        int l = upper_bound(d.begin(), d.end(), a[i]) - d.begin();
-        if (d[l-1] < a[i] && a[i] < d[l])
-            d[l] = a[i];
+    vector<int> temp;
+    temp.push_back(a[0]);
+    for (int i = 1; i < n; i++) {
+        if (a[i] > temp.back()) {
+            temp.push_back(a[i]);
+        } else {
+            int it = lower_bound(temp.begin(), temp.end(), a[i])-temp.begin();
+            temp[it] = a[i];
+        }
     }
-
-    int ans = 0;
-    for (int l = 0; l <= n; l++) {
-        if (d[l] < INF)
-            ans = l;
-    }
-    return ans;
+    return temp.size();
 }
