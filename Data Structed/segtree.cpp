@@ -24,6 +24,21 @@ struct SegTree{
     while(sz<=n) sz*=2;
     seg = vector<Node>(sz*2);
   }
+  void build(const vector<ll>& a, ll x, ll lx, ll rx){
+        if(rx-lx==1){
+            if(lx< a.size()){
+                seg[x].num = a[lx];
+            }
+            return;
+        }
+        
+        int mid = (rx+lx)/ 2;
+        
+        build(a, 2*x + 1, lx, mid);
+        build(a, 2*x + 2, mid, rx);
+        
+        seg[x] = Merge(seg[2*x + 1], seg[2*x + 2]);
+    }
   void update(ll i, ll v, ll x,ll lx,ll rx){
     if(rx-lx==1){
       seg[x].num+=v;
