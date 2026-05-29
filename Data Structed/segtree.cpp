@@ -50,6 +50,19 @@ struct SegTree{
     
     seg[x] = Merge(seg[2*x+1],seg[2*x+2]);
   }
+  void update2(ll l, ll r, ll x, ll lx, ll rx) {
+        if (lx >= r || rx <= l) return;
+        if (rx - lx == 1) {
+            //Update the leaf node here
+            return;
+        }
+        
+        int mid = (rx + lx) / 2;
+        update2(l, r, 2 * x + 1, lx, mid);
+        update2(l, r, 2 * x + 2, mid, rx);
+        
+        seg[x] = Merge(seg[2 * x + 1], seg[2 * x + 2]);
+    }
   Node query(ll l, ll r, ll x, ll lx,ll rx){
     if(lx>=r||rx<=l){
       Node out; return out;
