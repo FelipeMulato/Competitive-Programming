@@ -50,6 +50,15 @@ struct SegTree{
     
     seg[x] = Merge(seg[2*x+1],seg[2*x+2]);
   }
+  Node query(ll l, ll r, ll x, ll lx,ll rx){
+    if(lx>=r||rx<=l){
+      Node out; return out;
+    }
+    if(lx>=l && r>=rx) return seg[x];
+    int mid = (rx+lx)/2;
+    
+    return Merge(query(l,r,2*x+1,lx,mid),query(l,r,2*x+2,mid,rx));
+  }
   void update2(ll l, ll r, ll x, ll lx, ll rx) {
         if (lx >= r || rx <= l) return;
         if (rx - lx == 1) {
@@ -63,15 +72,6 @@ struct SegTree{
         
         seg[x] = Merge(seg[2 * x + 1], seg[2 * x + 2]);
     }
-  Node query(ll l, ll r, ll x, ll lx,ll rx){
-    if(lx>=r||rx<=l){
-      Node out; return out;
-    }
-    if(lx>=l && r>=rx) return seg[x];
-    int mid = (rx+lx)/2;
-    
-    return Merge(query(l,r,2*x+1,lx,mid),query(l,r,2*x+2,mid,rx));
-  }
 };
 int main(){
     cin.tie(0);
