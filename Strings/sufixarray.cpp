@@ -32,3 +32,20 @@ vector<int> suffixArray(string s){
     }
     return vector<int>(begin(sf)+1, end(sf));
 }
+\\ return the LCP array for a given string and its suffix array. The LCP array `lcp`, where `lcp[i]` represents the length of the longest common prefix between the i-th and (i-1)-th lexicographically smallest suffixes of `s`.
+ * Time Complexity: O(n) - where n is the length of the string.
+ * 
+ */
+vector<int> LCP(string &s, vector<int> &sf){ 
+    int n = s.size();
+    vector<int> lcp(n), pof(n);
+    for(int i=0; i<n; i++) pof[sf[i]] = i;
+
+    for(int i=0, j, k=0; i<n; k?--k:k, i++){
+        if(!pof[i]) continue; 
+        j = sf[pof[i]-1];
+        while(i+k<n && j+k<n && s[i+k]==s[j+k]) k++;
+        lcp[pof[i]] = k;
+    }
+    return lcp;
+}
